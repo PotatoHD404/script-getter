@@ -1,8 +1,52 @@
+<script lang="ts">
+import { getDatabase, ref, set, onValue, push } from "firebase/database";
+import type { Post } from '@/types/post';
+
+
+
+
+export default {
+  
+methods: {writePost: function () {
+    let text: Pick<Post, "text">;
+    // get text from input
+    text = {
+      text: this.text
+    }
+    let date = new Date();
+    let timestamp = date.getTime();
+    let db = getDatabase();
+    let postsRef = ref(db, 'posts/');
+    
+    // add new post to posts list
+    let newPostRef = push(postsRef);
+    set(newPostRef,{
+      text: text,
+      timestamp: timestamp
+    });
+
+    // clear input
+    this.text = "";
+    
+  },
+},
+  data() {
+    return {
+      text: "",
+    }
+  },
+}
+
+
+</script>
+
 <template>
   <div class="item">
     <i>
       <slot name="icon"></slot>
     </i>
+    <input v-model="text"/>
+    <button @click="writePost()">Add 1</button>
     <div class="details">
       <h3>
         <slot name="heading"></slot>

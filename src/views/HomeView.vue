@@ -1,9 +1,9 @@
 <script setup lang="ts">
-import TheWelcome from '../components/TheWelcome.vue'
+import Feed from '@/components/Feed.vue';
+import SendForm from '@/components/SendForm.vue';
 </script>
 
 <template>
-  <main>
-    <TheWelcome />
-  </main>
+    <SendForm />
+    <Feed />
 </template>
